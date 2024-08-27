@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        .game{
+            
+            width: 60%;
+            text-transform: uppercase;
+            font-size: 15px;
+            color: rgb(117, 117, 41);
+            border: 1px dashed rgb(117, 117, 41);
+            text-align: center;
+            height: 400px;
+        }
+        .result_container{
+            width: 50%;
+            height: 200px
+
+        }
+        
+        .buttons{
+            background-color: rgb(146, 146, 66);
+            margin: 5px;
+            padding: 5px;
+
+        }
+    </style>
+</head>
+<body>
+  <div class="game">
+    <h1>Stone Paper Scissors</h1>
+    <h4 class="result_container"></h4>
+    <div class="button_container">
+      <button class="buttons" onclick="
+      let userChoice = 'rock';
+      let computerChoice = generateComputerChoice();
+      let result = getResultMsg('rock', computerChoice);
+      showResult('rock',computerChoice,result);
+      ">Rock</button>
+      
+      <button class="buttons" onclick="
+      userChoice = 'paper';
+      computerChoice = generateComputerChoice();
+      result = getResultMsg('paper', computerChoice);
+      showResult('paper',computerChoice,result);
+      ">Paper</button>
+      
+      <button class="buttons" onclick="
+      userChoice = 'scissors';
+      computerChoice = generateComputerChoice();
+      result = getResultMsg('scissors', computerChoice);
+      showResult('scissors',computerChoice,result);
+      ">Scissors</button>
+    </div>
+  </div>
+  
+  <script>
+    let score={
+      win: 0,
+      lost: 0,
+      tie: 0,
+      displayscore: function(){
+        return `no of matches won:${score.win}
+        no of matches lost ${score.lost}
+        no of matches tie ${score.tie}`
+      }
+    };
+
+    function generateComputerChoice() {
+      let randomNumber= Math.random()*3;
+      if(randomNumber>0 && randomNumber<=1){
+        return 'rock';
+      } else if (randomNumber>1 && randomNumber<=2) {
+        return 'paper'
+      } else {
+        return 'scissors'
+      }
+    }
+  
+    function getResultMsg(userChoice, computerChoice) {
+      if (userChoice === 'rock') {
+        if (computerChoice === 'scissors') {
+          score.win++;
+          return 'you won';
+
+        } else if (computerChoice === 'rock') {
+          score.tie++;
+          return "it's a tie";
+        } else {
+          score.lost++;
+          return 'you lost';
+        }
+      } else if (userChoice === 'paper') {
+        if (computerChoice === 'paper') {
+          score.tie++;
+          return "it's a tie";
+        } else if (computerChoice === 'rock') {
+          score.win++;
+          return 'you won';
+        } else {
+          score.lost++;
+          return 'you lost';
+        }
+      } else {
+        if (computerChoice === 'paper') {
+          score.win++;
+          return 'you won';
+        } else if (computerChoice === 'rock') {
+          score.lost++;
+          return 'you lost';
+        } else {
+          score.tie++;
+          return "it's a tie";
+        }
+      }
+    }
+
+    function showResult(userChoice,computerChoice,result){
+      alert(`You chose ${userChoice}; computer chose ${computerChoice}:
+      
+      so ${result}
+      
+      ${score.displayscore()}`);
+    }
+  </script>
+  
+</body>
+</html>
