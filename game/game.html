@@ -2,71 +2,61 @@
 <html lang="en">
 <head>
     <title>Document</title>
-    <style>
-        .game{
-            
-            width: 60%;
-            text-transform: uppercase;
-            font-size: 15px;
-            color: rgb(117, 117, 41);
-            border: 1px dashed rgb(117, 117, 41);
-            text-align: center;
-            height: 400px;
-        }
-        .result_container{
-            width: 50%;
-            height: 200px
-
-        }
-        
-        .buttons{
-            background-color: rgb(146, 146, 66);
-            margin: 5px;
-            padding: 5px;
-
-        }
-    </style>
+    <link rel="stylesheet" href="game.css">
 </head>
 <body>
-  <div class="game">
-    <h1>Stone Paper Scissors</h1>
-    <h4 class="result_container"></h4>
+  <div class="game, background-container">
+    <div class="overlay"></div>
+    <h1 id="main_heading">Stone Paper Scissors</h1>
+    <div class="result_container">
+      <h3 id="user-move"></h3>
+      <h3 id="computer-move"></h3>
+      <h3 id="result"></h3>
+      <h3 id="score"></h3>
+    </div>
     <div class="button_container">
       <button class="buttons" onclick="
       let userChoice = 'rock';
       let computerChoice = generateComputerChoice();
       let result = getResultMsg('rock', computerChoice);
       showResult('rock',computerChoice,result);
-      ">Rock</button>
+      "><img class="button-image" src="rock.png" alt="rock"></button>
       
       <button class="buttons" onclick="
       userChoice = 'paper';
       computerChoice = generateComputerChoice();
       result = getResultMsg('paper', computerChoice);
       showResult('paper',computerChoice,result);
-      ">Paper</button>
+      "><img class="button-image" src="paper.png" alt="paper"></button>
       
       <button class="buttons" onclick="
       userChoice = 'scissors';
       computerChoice = generateComputerChoice();
       result = getResultMsg('scissors', computerChoice);
       showResult('scissors',computerChoice,result);
-      ">Scissors</button>
+      "><img class="button-image" src="scissors.png" alt="scissors"></button>
     </div>
+    <div  style="position: relative;">
+      <button  class="buttons" style="position: absolute; left: 0; top: 15px;"  onclick="
+        localStorage.clear();
+        resetscore();">reSET</button>
+      <button  class="buttons" style="position: absolute; right: 0; top: 15px;">about</button>
+  </div>
   </div>
   
   <script>
-    let score={
+    let score= {
       win: 0,
       lost: 0,
       tie: 0,
-      displayscore: function(){
-        return `no of matches won:${score.win}
-        no of matches lost ${score.lost}
-        no of matches tie ${score.tie}`
-      }
     };
 
+    score.displayscore=function(){
+      return `no of matches won:${score.win}
+      no of matches lost ${score.lost}
+      no of matches tie ${score.tie}`
+      };
+    
     function generateComputerChoice() {
       let randomNumber= Math.random()*3;
       if(randomNumber>0 && randomNumber<=1){
@@ -117,12 +107,29 @@
     }
 
     function showResult(userChoice,computerChoice,result){
-      alert(`You chose ${userChoice}; computer chose ${computerChoice}:
+      localStorage.setItem('score',JSON.stringify(score));
+      document.querySelector('#user-move').innerHTML=userChoice ? `you have choosen ${userChoice}` : '';
       
-      so ${result}
+      document.querySelector('#computer-move').innerHTML=computerChoice ?  `computer choosen ${computerChoice}` : ''; 
+
       
-      ${score.displayscore()}`);
-    }
+      document.querySelector('#result').innerHTML=result ||'';
+      
+      document.querySelector('#score').innerHTML=score.displayscore();
+    };
+    let scoreSTR=localStorage.getItem('score');
+    function resetscore(scoreSTR){
+      score= scoreSTR ? JSON.parse(scoreSTR) : {
+      win: 0,
+      lost: 0,
+      tie: 0,
+    };
+
+    score.displayscore=function(){
+      return `score: won:${score.win},lost ${score.lost}, tie ${score.tie}`
+      };
+      showResult();
+    };
   </script>
   
 </body>
