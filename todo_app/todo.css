@@ -2,8 +2,21 @@ body{
     text-align: center;
     font-family: arial;
 }
+.app{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 100vh;
+    background-color: rgb(16, 76, 87);
+    border: 1px solid;
+    border-radius: 4%;
+    box-shadow: 2px 2px 4px black;
+    box-sizing: border-box;
+}
 #main_heading{
-    text-transform: capitalize;
+    color: whitesmoke;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgb(127, 211, 226);
 }
 .grid_container{
     display: grid;
@@ -12,25 +25,36 @@ body{
     row-gap: 10px;
     margin-top: 10px;
     align-items: center;
+    margin-left: 10%;
+    color: whitesmoke;
+    text-transform: capitalize;
 }
 #todo_input, #todo_date{
     font-size: 15px;
     padding: 10px 5px;
+    color: rgb(168, 162, 162);
+    border-radius: 5px;
+    border: 1px solid rgb(127, 211, 226);
+    box-shadow: 1px 1px 2px rgb(127, 211, 226);
 }
 .btn_delete{
-    background-color: rgb(88, 5, 5);
+    background-color: rgb(223 36 36);
+    box-shadow: 2px 2px 4px rgb(223 36 36);
     color: white;
     border: none;
     border-radius: 10px;
     padding: 15px 0px;
     font-weight: 700;
     cursor: pointer;
+    text-shadow: 1px 1px 2px black;
 
 }
 .btn_add{
-    background-color: rgb(4, 110, 22);
+    background-color: rgb(52, 151, 69);
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 2px 2px 4px rgb(52, 151, 69);
     color: white;
-    border: none;
+    border: 1px rgb(13, 121, 22);
     border-radius: 10px;
     padding: 15px 0px;
     text-transform: capitalize;
